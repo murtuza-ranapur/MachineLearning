@@ -21,12 +21,6 @@ critics={
         'Superman Returns': 3.5,
         'The Night listener': 4.0
     },
-    'Michael': {
-        'Lady in the Water': 2.5,
-        'Snakes on a Plane': 3.0,
-        'Superman Returns': 3.2,
-        'The Night listener': 4.0
-    },
     'Claudia Puig': {
         'Lady in the Water': 2.5,
         'Snakes on a Plane': 3.5,

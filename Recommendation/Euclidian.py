@@ -14,5 +14,4 @@ def sim_distance(pref, person1, person2):
 
     return 1 / (1 + sum_of_squr)
 
-
 print(sim_distance(critics, 'Lisa Rose', 'Jack Matthews'))
