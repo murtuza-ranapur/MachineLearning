@@ -29,4 +29,4 @@ def sim_distance(pref, person1, person2):
     return r
 
 
-print(sim_distance(critics, 'Lisa Rose', 'Gene Seymour'))
+# print(sim_distance(critics, 'Lisa Rose', 'Gene Seymour'))
