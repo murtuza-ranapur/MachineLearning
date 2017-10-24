@@ -10,7 +10,7 @@ def topMatch(prefs,person,n=5,similarity=sim_distance):
     return sims[0:n]
 
 
-print(topMatch(critics,'Toby',n=3))
+# print(topMatch(critics,'Toby',n=3))
 
 def getRecommmendations(prefs,person,similarity=sim_distance):
     total={}
@@ -36,6 +36,36 @@ def getRecommmendations(prefs,person,similarity=sim_distance):
         ranking.reverse()
         return ranking
 
-print(getRecommmendations(critics,'Toby'))
+def transformPrefs(prefs):
+    result={}
+    for pearson in prefs:
+        for items in prefs[pearson]:
+            result.setdefault(items,{})
+            result[items][pearson]=prefs[pearson][items]
+    return result
+
+# print(getRecommmendations(critics,'Toby'))
+prefTrans=transformPrefs(critics)
+
+# print(topMatch(prefTrans,'Superman Returns'))
+
+"""
+Till now we did user based collaborative filtering now we will do item based collaborative filtering
+"""
+
+def calculate_similar_items(prefs,n=10):
+    result={}
+    itemprefs=transformPrefs(prefs)
+    c=0
+    for item in itemprefs:
+        c+=1
+        if c%100==0: print("%d / %d"%(c,len(itemprefs)))
+        scores=topMatch(itemprefs,item,n=n)
+        result[item]=scores
+    return result
+
+print(calculate_similar_items(critics))
+
+sim_items=calculate_similar_items(critics)
 
 
