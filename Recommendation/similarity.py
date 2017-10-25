@@ -1,5 +1,6 @@
 from rcommendations import critics
 from Pearson import sim_distance
+from parseMovieLens import getMovieLensData
 
 
 def topMatch(prefs,person,n=5,similarity=sim_distance):
@@ -21,7 +22,7 @@ def getRecommmendations(prefs,person,similarity=sim_distance):
 
         sim=similarity(prefs,person,other)
 
-        if sim<0 : continue
+        if sim<=0 : continue
 
         for item in prefs[other]:
             if item not in prefs[person] or prefs[person][item]==0:
@@ -64,8 +65,33 @@ def calculate_similar_items(prefs,n=10):
         result[item]=scores
     return result
 
-print(calculate_similar_items(critics))
+# print(calculate_similar_items(critics))
 
-sim_items=calculate_similar_items(critics)
+def getRecommendedItems(prefs,itemmatch,user):
+    userRating=prefs[user]
+    scores={}
+    totalSim={}
+
+    for item,rating in userRating.items():
+        for similarity,item2 in itemmatch[item]:
+            if item2 in userRating: continue
+
+            scores.setdefault(item2,0)
+            scores[item2]+=similarity*rating
+
+            totalSim.setdefault(item2,0)
+            totalSim[item2]+=similarity
+
+    ranking=[(score/totalSim[item],item) for item,score in scores.items()]
+
+    ranking.sort()
+    ranking.reverse()
+    return ranking
 
 
+# sim_items=calculate_similar_items(critics)
+
+# print(getRecommendedItems(critics,sim_items,'Toby'))
+
+
+print(getRecommmendations(getMovieLensData(),87)[0:30])
